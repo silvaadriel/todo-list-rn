@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { 
   StyleSheet,
   Text,
-  TextInput,
   View,
-  TouchableHighlight,
 } from 'react-native';
 import TodoItem from '../components/TodoItem';
+import AddTodoItemBar from '../components/AddTodoItemBar';
 
 export default function App() {
   const [value, onChangeText] = useState('');
@@ -38,21 +37,12 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.appTitle}>TodoListRN</Text>
-      <View style={styles.todoInput}>
-        <TextInput
-          style={{ width: '70%', height: 40, borderColor: 'gray', borderWidth: 1, padding: 10 }}
-          onChangeText={text => onChangeText(text)}
-          value={value}
-          placeholder="Type something todo"
-        />
-        <TouchableHighlight
-          style={styles.addButton}
-          disabled={!value}
-          onPress={handleAddButton}
-        >
-          <Text style={{ color: '#fff' }}>Add</Text>
-        </TouchableHighlight>
-      </View>
+      <AddTodoItemBar
+        value={value}
+        onChangeText={onChangeText}
+        placeholder="Type something todo"
+        onPressAddButton={handleAddButton}
+      />
       <View style={styles.todoList}>
         {
           todoList.length
@@ -84,40 +74,9 @@ const styles = StyleSheet.create({
     fontSize: 38,
     marginTop: 60,
   },
-  todoInput: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    width: '100%',
-    marginTop: 60,
-    marginBottom: 40,
-  },
-  addButton: {
-    padding: 13,
-    backgroundColor: '#659DF6',
-  },
   todoList: {
     flex: 1,
     alignItems: 'center',
     width: '100%',
-  },
-  todoItem: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 20,
-    borderColor: 'gray',
-    borderWidth: 1,
-    height: 60,
-    width: '90%',
-    marginBottom: 20,
-  },
-  todoItemText: {
-    fontSize: 20,
-  },
-  todoItemTextIsDone: {
-    textDecorationLine: 'line-through',
   },
 });
